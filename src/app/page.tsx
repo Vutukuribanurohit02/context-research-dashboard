@@ -109,13 +109,13 @@ export default function Home() {
   };
 
   return (
-    <div className="relative min-h-screen text-[#eafff3] flex flex-col font-sans overflow-hidden">
+    <div className="relative min-h-screen text-[#fcfaff] flex flex-col font-sans overflow-hidden">
       {/* Subtle cyber background grid overlay */}
       <div className="absolute inset-0 cyber-grid pointer-events-none z-0 opacity-80" />
 
-      {/* Floating neon green atmospheric orbs */}
-      <div className="absolute top-[10%] left-[12%] w-[350px] h-[350px] rounded-full bg-cyber-green/8 filter blur-[100px] animate-float-slow pointer-events-none z-0" />
-      <div className="absolute bottom-[10%] right-[12%] w-[400px] h-[400px] rounded-full bg-[#00ffc4]/6 filter blur-[120px] animate-float-delayed pointer-events-none z-0" />
+      {/* Floating purple/pink spatial atmospheric orbs (nebula clouds) */}
+      <div className="absolute top-[8%] left-[10%] w-[380px] h-[380px] rounded-full bg-cyber-purple/10 filter blur-[110px] animate-float-slow pointer-events-none z-0" />
+      <div className="absolute bottom-[8%] right-[10%] w-[420px] h-[420px] rounded-full bg-cyber-pink/8 filter blur-[130px] animate-float-delayed pointer-events-none z-0" />
 
       {/* Main App Container */}
       <div className="relative z-10 grid grid-cols-1 xl:grid-cols-[280px_1fr_320px] gap-6 p-6 min-h-screen">
@@ -136,12 +136,12 @@ export default function Home() {
           {/* Top Hero Section */}
           <section className="glass-panel p-8 relative overflow-hidden bg-black/30">
             {/* Ambient edge glow */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-cyber-green/5 filter blur-3xl pointer-events-none" />
+            <div className="absolute top-0 right-0 w-32 h-32 bg-cyber-purple/5 filter blur-3xl pointer-events-none" />
 
             <div className="flex flex-col gap-4">
               <div className="flex items-center gap-2">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 text-[11px] font-mono font-semibold text-cyber-green bg-cyber-green/10 border border-cyber-green/20 rounded-full">
-                  <Flame className="w-3.5 h-3.5 text-cyber-green animate-pulse" />
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 text-[11px] font-mono font-semibold text-cyber-pink bg-cyber-purple/10 border border-cyber-purple/20 rounded-full">
+                  <Flame className="w-3.5 h-3.5 text-cyber-pink animate-pulse" />
                   Live AI Research Intelligence
                 </span>
                 <span className="text-[10px] font-mono text-white/30 hidden sm:inline">
@@ -151,7 +151,7 @@ export default function Home() {
 
               <div className="space-y-1">
                 <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
-                  Turn Keywords into <span className="text-cyber-green filter drop-shadow-[0_0_15px_rgba(57,255,136,0.3)]">Live Intelligence.</span>
+                  Turn Keywords into <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyber-purple to-cyber-pink filter drop-shadow-[0_0_15px_rgba(168,85,247,0.3)]">Live Intelligence.</span>
                 </h1>
                 <p className="text-white/60 text-xs sm:text-sm font-sans max-w-2xl leading-relaxed">
                   Search today's web, scrape structured markdown content, capture screenshots, extract dynamic image assets, and generate a premium research board with verifiable citations.
@@ -159,9 +159,9 @@ export default function Home() {
               </div>
 
               {/* Main Search Box */}
-              <div className="mt-4 flex items-center gap-2 bg-black/60 border border-cyber-green/20 focus-within:border-cyber-green/60 p-1.5 rounded-2xl transition-all shadow-[0_0_20px_rgba(0,0,0,0.4)]">
+              <div className="mt-4 flex items-center gap-2 bg-black/60 border border-cyber-purple/20 focus-within:border-cyber-purple/50 p-1.5 rounded-2xl transition-all shadow-[0_0_20px_rgba(0,0,0,0.4)]">
                 <div className="pl-3 text-white/40 flex-shrink-0">
-                  <Search className="w-5 h-5" />
+                  <Search className="w-5 h-5 text-cyber-purple" />
                 </div>
                 <input
                   type="text"
@@ -176,7 +176,7 @@ export default function Home() {
                   type="button"
                   onClick={() => handleSearch()}
                   disabled={isLoading || !query.trim()}
-                  className="px-6 py-3 bg-gradient-to-r from-cyber-green to-[#00b95f] hover:from-[#4eff98] hover:to-[#00d86f] text-cyber-dark text-xs font-extrabold rounded-xl transition-all cursor-pointer flex items-center gap-1.5 shadow-[0_0_20px_rgba(57,255,136,0.25)] hover:shadow-[0_0_30px_rgba(57,255,136,0.45)] disabled:opacity-50 disabled:cursor-not-allowed select-none"
+                  className="px-6 py-3 bg-gradient-to-r from-cyber-purple to-cyber-pink hover:from-[#c084fc] hover:to-[#f472b6] text-white text-xs font-extrabold rounded-xl transition-all cursor-pointer flex items-center gap-1.5 shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:shadow-[0_0_30px_rgba(236,72,153,0.45)] disabled:opacity-50 disabled:cursor-not-allowed select-none"
                 >
                   Research
                 </button>
@@ -196,7 +196,7 @@ export default function Home() {
                       }
                     }}
                     disabled={isLoading}
-                    className="px-2.5 py-1 bg-white/2 hover:bg-cyber-green/5 border border-white/5 hover:border-cyber-green/20 rounded-lg text-white/60 hover:text-white transition-colors cursor-pointer disabled:opacity-50"
+                    className="px-2.5 py-1 bg-white/2 hover:bg-cyber-purple/5 border border-white/5 hover:border-cyber-purple/20 rounded-lg text-white/60 hover:text-white transition-colors cursor-pointer disabled:opacity-50"
                   >
                     {t}
                   </button>
@@ -263,14 +263,14 @@ export default function Home() {
                   className="flex-1 glass-panel flex flex-col items-center justify-center p-8 text-center bg-black/10 border-dashed border-white/5"
                 >
                   <div className="w-16 h-16 rounded-full bg-white/2 border border-white/5 flex items-center justify-center mb-4 text-white/30">
-                    <Terminal className="w-8 h-8" />
+                    <Terminal className="w-8 h-8 text-cyber-purple/60" />
                   </div>
                   <h3 className="text-lg font-bold text-white mb-2">Workspace Standby</h3>
                   <p className="text-xs text-white/40 max-w-sm leading-relaxed mb-4">
                     Enter research keywords or select a template above. The system will consult the live web, parse the scraped content, and compile your intelligence dashboard.
                   </p>
                   <div className="text-[10px] text-white/20 font-mono flex items-center gap-1">
-                    <HelpCircle className="w-3.5 h-3.5" />
+                    <HelpCircle className="w-3.5 h-3.5 text-cyber-purple/50" />
                     Bypasses traditional cookies and advertisement frames.
                   </div>
                 </motion.div>

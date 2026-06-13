@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { 
   FileText, Sparkles, TrendingUp, AlertCircle, Quote, 
   ExternalLink, Calendar, Copy, Check, FileCode, CheckCircle2,
-  ChevronLeft, ChevronRight, X
+  ChevronLeft, ChevronRight, X, ShieldCheck
 } from "lucide-react";
 
 interface Citation {
@@ -110,14 +110,21 @@ ${data.sources.map(s => `- [${s.title}](${s.url}) (Relevance: ${s.relevance})`).
     setTimeout(() => setCopiedText(null), 2000);
   };
 
+  // SVG parameters for circular confidence ring
+  const radius = 35;
+  const stroke = 5;
+  const normalizedRadius = radius - stroke * 2;
+  const circumference = normalizedRadius * 2 * Math.PI;
+  const strokeDashoffset = circumference - (data.confidence / 100) * circumference;
+
   return (
     <div className="space-y-6">
       {/* Top action row */}
       <div className="flex items-center justify-between pb-2 border-b border-white/5">
         <div>
           <div className="text-xs font-mono text-white/40">QUERY RUNTIME COMPLETED</div>
-          <h2 className="text-sm font-mono font-bold text-cyber-green flex items-center gap-1.5">
-            <CheckCircle2 className="w-4 h-4" />
+          <h2 className="text-sm font-mono font-bold text-cyber-purple flex items-center gap-1.5">
+            <CheckCircle2 className="w-4 h-4 text-cyber-pink" />
             SYNTHESIS COMPLETED FOR "{data.query.toUpperCase()}"
           </h2>
         </div>
@@ -127,11 +134,11 @@ ${data.sources.map(s => `- [${s.title}](${s.url}) (Relevance: ${s.relevance})`).
           <button
             type="button"
             onClick={copyMarkdown}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-xl bg-white/2 hover:bg-cyber-green/10 border border-white/5 hover:border-cyber-green/30 text-white/80 hover:text-white transition-all cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-xl bg-white/2 hover:bg-cyber-purple/10 border border-white/5 hover:border-cyber-purple/30 text-white/80 hover:text-white transition-all cursor-pointer"
           >
             {copiedText === "md" ? (
               <>
-                <Check className="w-3.5 h-3.5 text-cyber-green" />
+                <Check className="w-3.5 h-3.5 text-cyber-pink" />
                 Copied Brief!
               </>
             ) : (
@@ -146,11 +153,11 @@ ${data.sources.map(s => `- [${s.title}](${s.url}) (Relevance: ${s.relevance})`).
           <button
             type="button"
             onClick={copyJSON}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-xl bg-white/2 hover:bg-cyber-green/10 border border-white/5 hover:border-cyber-green/30 text-white/80 hover:text-white transition-all cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-xl bg-white/2 hover:bg-cyber-purple/10 border border-white/5 hover:border-cyber-purple/30 text-white/80 hover:text-white transition-all cursor-pointer"
           >
             {copiedText === "json" ? (
               <>
-                <Check className="w-3.5 h-3.5 text-cyber-green" />
+                <Check className="w-3.5 h-3.5 text-cyber-pink" />
                 Copied JSON!
               </>
             ) : (
@@ -168,11 +175,16 @@ ${data.sources.map(s => `- [${s.title}](${s.url}) (Relevance: ${s.relevance})`).
         
         {/* Executive Summary (2 columns wide) */}
         <div className="md:col-span-2 glass-panel p-6 flex flex-col gap-4">
-          <h3 className="text-xs font-mono font-bold tracking-widest text-cyber-green/70 flex items-center gap-2 uppercase">
-            <Sparkles className="w-4 h-4 text-cyber-green" />
-            Executive Summary
-          </h3>
-          <p className="text-white/80 text-sm leading-relaxed whitespace-pre-wrap font-sans">
+          <div className="flex items-center justify-between">
+            <h3 className="text-xs font-mono font-bold tracking-widest text-cyber-purple/80 flex items-center gap-2 uppercase">
+              <Sparkles className="w-4 h-4 text-cyber-pink" />
+              Executive Summary
+            </h3>
+            <span className="text-[10px] font-mono text-cyber-purple-glow bg-cyber-purple/5 px-2.5 py-0.5 rounded-full border border-cyber-purple/15">
+              CONFIDENCE: {data.confidence}%
+            </span>
+          </div>
+          <p className="text-white/85 text-sm leading-relaxed whitespace-pre-wrap font-sans">
             {data.summary}
           </p>
 
@@ -180,48 +192,88 @@ ${data.sources.map(s => `- [${s.title}](${s.url}) (Relevance: ${s.relevance})`).
             <span className="text-[10px] font-mono text-white/30 tracking-widest uppercase">
               Strategic Impact &bull; Why This Matters
             </span>
-            <p className="text-xs text-emerald-400/70 italic leading-relaxed">
+            <p className="text-xs text-cyber-pink/70 italic leading-relaxed">
               "{data.whyThisMatters}"
             </p>
           </div>
         </div>
 
-        {/* Market / Analytical Signals (1 column wide) */}
+        {/* Confidence Circle Widget & Key Stats (1 column wide) */}
         <div className="glass-panel p-6 flex flex-col gap-4">
-          <h3 className="text-xs font-mono font-bold tracking-widest text-cyber-green/70 flex items-center gap-2 uppercase">
-            <TrendingUp className="w-4 h-4 text-cyber-green" />
-            Market & Research Signals
+          <h3 className="text-xs font-mono font-bold tracking-widest text-cyber-purple/80 flex items-center gap-2 uppercase">
+            <ShieldCheck className="w-4 h-4 text-cyber-pink" />
+            Reliability Score
           </h3>
           
-          <div className="flex-1 flex flex-col gap-3.5">
-            {data.insights.map((ins, idx) => (
-              <div key={idx} className="bg-black/40 p-4 border border-white/5 rounded-2xl flex flex-col gap-1.5 glass-card">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-mono text-cyber-green/70 px-2 py-0.5 rounded-full bg-cyber-green/5 border border-cyber-green/15 uppercase">
-                    {ins.type}
-                  </span>
-                  <strong className="text-white font-mono text-sm">{ins.metric}</strong>
-                </div>
-                <h4 className="text-xs font-bold text-white mt-1">{ins.title}</h4>
-                <p className="text-[11px] text-white/60 leading-relaxed">{ins.content}</p>
+          <div className="flex flex-col items-center justify-center p-4 bg-black/45 border border-white/5 rounded-2xl gap-3">
+            <div className="relative w-24 h-24 flex items-center justify-center">
+              <svg className="w-full h-full transform -rotate-90">
+                {/* Track Circle */}
+                <circle
+                  className="text-white/5"
+                  strokeWidth={stroke}
+                  stroke="currentColor"
+                  fill="transparent"
+                  r={normalizedRadius}
+                  cx={radius + 12}
+                  cy={radius + 12}
+                />
+                {/* Glowing Progress Circle */}
+                <motion.circle
+                  className="text-cyber-purple"
+                  strokeWidth={stroke}
+                  strokeDasharray={circumference + " " + circumference}
+                  style={{ strokeDashoffset }}
+                  strokeLinecap="round"
+                  stroke="currentColor"
+                  fill="transparent"
+                  r={normalizedRadius}
+                  cx={radius + 12}
+                  cy={radius + 12}
+                  initial={{ strokeDashoffset: circumference }}
+                  animate={{ strokeDashoffset }}
+                  transition={{ duration: 1.5, ease: "easeOut" }}
+                />
+              </svg>
+              {/* Score text overlay */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <span className="text-xl font-black text-white leading-none font-mono">{data.confidence}%</span>
+                <span className="text-[8px] font-mono text-cyber-pink tracking-wider mt-0.5">SCORE</span>
               </div>
-            ))}
+            </div>
+            <div className="text-[10px] font-mono text-white/50 text-center leading-relaxed max-w-[180px]">
+              Fidelity index mapped from source consensus, update freshness, and domain overlap.
+            </div>
+          </div>
+
+          {/* Render one quick stat */}
+          <div className="mt-auto bg-cyber-purple/5 p-4 border border-cyber-purple/15 rounded-2xl flex items-center justify-between">
+            <div>
+              <div className="text-[10px] font-mono text-white/40">SCANNED SOURCES</div>
+              <div className="text-lg font-black text-white font-mono">{data.sources.length} Pages</div>
+            </div>
+            <div className="text-right">
+              <div className="text-[10px] font-mono text-white/40">VISUAL EVIDENCE</div>
+              <div className="text-lg font-black text-white font-mono">
+                {data.images.length + data.screenshots.length} Assets
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Key Highlights & Citations (2 columns wide) */}
         <div className="md:col-span-2 glass-panel p-6 flex flex-col gap-4">
-          <h3 className="text-xs font-mono font-bold tracking-widest text-cyber-green/70 flex items-center gap-2 uppercase">
-            <Quote className="w-4 h-4 text-cyber-green" />
+          <h3 className="text-xs font-mono font-bold tracking-widest text-cyber-purple/80 flex items-center gap-2 uppercase">
+            <Quote className="w-4 h-4 text-cyber-pink" />
             Key Highlights & Citations
           </h3>
 
           <div className="space-y-3">
             {data.highlights.map((h, idx) => (
-              <div key={idx} className="p-4 bg-white/2 hover:bg-cyber-green/5 border border-white/3 hover:border-cyber-green/10 rounded-2xl transition-all flex flex-col gap-2 relative overflow-hidden group">
+              <div key={idx} className="p-4 bg-white/2 hover:bg-cyber-purple/5 border border-white/3 hover:border-cyber-purple/10 rounded-2xl transition-all flex flex-col gap-2 relative overflow-hidden group">
                 <div className="flex items-start justify-between gap-4">
                   <h4 className="text-xs font-bold text-white flex gap-2">
-                    <span className="text-cyber-green/50 font-mono">0{idx + 1}.</span>
+                    <span className="text-cyber-purple/60 font-mono">0{idx + 1}.</span>
                     {h.title}
                   </h4>
                   {h.citation.url && (
@@ -229,7 +281,7 @@ ${data.sources.map(s => `- [${s.title}](${s.url}) (Relevance: ${s.relevance})`).
                       href={h.citation.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[10px] text-cyber-green hover:text-white flex items-center gap-0.5 font-mono opacity-40 group-hover:opacity-100 transition-opacity bg-cyber-green/5 px-2 py-0.5 rounded-md border border-cyber-green/10"
+                      className="text-[10px] text-cyber-pink hover:text-white flex items-center gap-0.5 font-mono opacity-40 group-hover:opacity-100 transition-opacity bg-cyber-pink/5 px-2 py-0.5 rounded-md border border-cyber-pink/15"
                     >
                       Ref <ExternalLink className="w-3 h-3" />
                     </a>
@@ -248,15 +300,15 @@ ${data.sources.map(s => `- [${s.title}](${s.url}) (Relevance: ${s.relevance})`).
 
         {/* Visual Evidence / Image Gallery (1 column wide) */}
         <div className="glass-panel p-6 flex flex-col gap-4">
-          <h3 className="text-xs font-mono font-bold tracking-widest text-cyber-green/70 flex items-center gap-2 uppercase">
-            <AlertCircle className="w-4 h-4 text-cyber-green" />
+          <h3 className="text-xs font-mono font-bold tracking-widest text-cyber-purple/80 flex items-center gap-2 uppercase">
+            <AlertCircle className="w-4 h-4 text-cyber-pink" />
             Visual Evidence
           </h3>
 
           <div className="flex-1 flex flex-col gap-3">
             {/* Renders screenshot if available */}
             {data.screenshots && data.screenshots.length > 0 && (
-              <div className="relative group rounded-xl overflow-hidden border border-cyber-green/20 aspect-video bg-black/60 shadow-[0_0_15px_rgba(0,255,120,0.1)]">
+              <div className="relative group rounded-xl overflow-hidden border border-cyber-purple/20 aspect-video bg-black/60 shadow-[0_0_15px_rgba(168,85,247,0.15)]">
                 <img 
                   src={data.screenshots[0].url} 
                   alt="Scraped Web Capture" 
@@ -265,7 +317,7 @@ ${data.sources.map(s => `- [${s.title}](${s.url}) (Relevance: ${s.relevance})`).
                 />
                 <div className="absolute bottom-0 inset-x-0 bg-black/75 p-2 text-[10px] font-mono text-white/80 border-t border-white/5 flex items-center justify-between">
                   <span>SCREEN CAPTURE</span>
-                  <span className="text-cyber-green truncate">{data.screenshots[0].domain}</span>
+                  <span className="text-cyber-pink truncate">{data.screenshots[0].domain}</span>
                 </div>
               </div>
             )}
@@ -300,8 +352,8 @@ ${data.sources.map(s => `- [${s.title}](${s.url}) (Relevance: ${s.relevance})`).
 
         {/* Timeline of Developments (1 column wide) */}
         <div className="glass-panel p-6 flex flex-col gap-4">
-          <h3 className="text-xs font-mono font-bold tracking-widest text-cyber-green/70 flex items-center gap-2 uppercase">
-            <Calendar className="w-4 h-4 text-cyber-green" />
+          <h3 className="text-xs font-mono font-bold tracking-widest text-cyber-purple/80 flex items-center gap-2 uppercase">
+            <Calendar className="w-4 h-4 text-cyber-pink" />
             Timeline developments
           </h3>
 
@@ -309,10 +361,10 @@ ${data.sources.map(s => `- [${s.title}](${s.url}) (Relevance: ${s.relevance})`).
             {data.timeline.map((item, idx) => (
               <div key={idx} className="relative group">
                 {/* Node indicator */}
-                <div className="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-cyber-dark border-2 border-cyber-green shadow-[0_0_8px_#39ff88] group-hover:bg-cyber-green transition-all" />
+                <div className="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-cyber-dark border-2 border-cyber-purple shadow-[0_0_8px_rgba(168,85,247,0.7)] group-hover:bg-cyber-pink transition-all" />
                 
                 <div className="flex flex-col gap-1">
-                  <span className="text-[10px] font-mono text-cyber-green/80 font-bold">
+                  <span className="text-[10px] font-mono text-cyber-pink/80 font-bold">
                     {item.date}
                   </span>
                   <p className="text-xs text-white/80 leading-relaxed font-sans">
@@ -323,7 +375,7 @@ ${data.sources.map(s => `- [${s.title}](${s.url}) (Relevance: ${s.relevance})`).
                       href={item.citationUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[9px] text-white/40 hover:text-cyber-green font-mono flex items-center gap-0.5 mt-0.5"
+                      className="text-[9px] text-white/40 hover:text-cyber-purple font-mono flex items-center gap-0.5 mt-0.5"
                     >
                       source ref &rarr;
                     </a>
@@ -334,16 +386,39 @@ ${data.sources.map(s => `- [${s.title}](${s.url}) (Relevance: ${s.relevance})`).
           </div>
         </div>
 
-        {/* Sources Consulted (2 columns wide) */}
+        {/* Market / Analytical Signals (2 columns wide) */}
         <div className="md:col-span-2 glass-panel p-6 flex flex-col gap-4">
-          <h3 className="text-xs font-mono font-bold tracking-widest text-cyber-green/70 flex items-center gap-2 uppercase">
-            <FileText className="w-4 h-4 text-cyber-green" />
+          <h3 className="text-xs font-mono font-bold tracking-widest text-cyber-purple/80 flex items-center gap-2 uppercase">
+            <TrendingUp className="w-4 h-4 text-cyber-pink" />
+            Market & Research Signals
+          </h3>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {data.insights.map((ins, idx) => (
+              <div key={idx} className="bg-black/40 p-4 border border-white/5 rounded-2xl flex flex-col gap-1.5 glass-card">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono text-cyber-pink/80 px-2 py-0.5 rounded-full bg-cyber-pink/5 border border-cyber-pink/15 uppercase">
+                    {ins.type}
+                  </span>
+                  <strong className="text-white font-mono text-xs">{ins.metric}</strong>
+                </div>
+                <h4 className="text-xs font-bold text-white mt-1">{ins.title}</h4>
+                <p className="text-[11px] text-white/60 leading-relaxed">{ins.content}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Sources Consulted (3 columns wide) */}
+        <div className="md:col-span-3 glass-panel p-6 flex flex-col gap-4">
+          <h3 className="text-xs font-mono font-bold tracking-widest text-cyber-purple/80 flex items-center gap-2 uppercase">
+            <FileText className="w-4 h-4 text-cyber-pink" />
             Scanned Web Sources ({data.sources.length})
           </h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[350px] overflow-y-auto pr-1">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 max-h-[350px] overflow-y-auto pr-1">
             {data.sources.map((src, idx) => (
-              <div key={idx} className="p-3.5 bg-black/40 border border-white/5 rounded-2xl flex flex-col gap-2 hover:border-cyber-green/20 transition-all group">
+              <div key={idx} className="p-3.5 bg-black/40 border border-white/5 rounded-2xl flex flex-col gap-2 hover:border-cyber-purple/20 transition-all group">
                 <div className="flex items-start justify-between gap-3">
                   <h4 className="text-xs font-bold text-white leading-tight truncate max-w-[80%]">
                     {src.title}
@@ -369,7 +444,7 @@ ${data.sources.map(s => `- [${s.title}](${s.url}) (Relevance: ${s.relevance})`).
                     href={src.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-cyber-green hover:text-white flex items-center gap-0.5 group-hover:translate-x-0.5 transition-transform"
+                    className="text-cyber-pink hover:text-white flex items-center gap-0.5 group-hover:translate-x-0.5 transition-transform"
                   >
                     View Source <ExternalLink className="w-2.5 h-2.5" />
                   </a>
@@ -402,7 +477,7 @@ ${data.sources.map(s => `- [${s.title}](${s.url}) (Relevance: ${s.relevance})`).
               initial={{ scale: 0.95 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.95 }}
-              className="relative max-w-5xl max-h-[85vh] rounded-2xl overflow-hidden border border-white/10 shadow-[0_0_80px_rgba(57,255,136,0.15)]"
+              className="relative max-w-5xl max-h-[85vh] rounded-2xl overflow-hidden border border-white/10 shadow-[0_0_80px_rgba(168,85,247,0.25)]"
               onClick={(e) => e.stopPropagation()}
             >
               <img 
