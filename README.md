@@ -103,7 +103,7 @@ npm install
 ```bash
 npm.cmd run dev
 ```
-Open [http://localhost:3000](http://localhost:3000) to view the application.
+
 
 ### 5. Production Build
 To build and check TypeScript/PostCSS compilation:
