@@ -119,13 +119,21 @@
 }
 
 /* Base modifications */
+html, body {
+  background-color: #020403; /* Safe black default so background is never white */
+  color: #fcfaff;
+  overflow-x: hidden;
+}
+
 body {
-  background-color: var(--background);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+.theme-cyber, .theme-spatial, .theme-quantum, .theme-robotics {
+  background-color: var(--theme-dark);
   background-image: var(--theme-bg-gradient);
   color: var(--foreground);
-  overflow-x: hidden;
-  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-  transition: background-image 0.5s ease;
+  transition: background-color 0.5s ease, background-image 0.5s ease;
 }
 
 /* Premium Spatial Glassmorphism styling */
