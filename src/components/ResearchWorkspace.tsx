@@ -164,7 +164,7 @@ export default function ResearchWorkspace({ theme, onBackToHome }: ResearchWorks
             </div>
 
             {/* Main Search Box */}
-            <div className="mt-4 flex items-center gap-2 bg-black/60 border border-cyber-purple/20 focus-within:border-cyber-purple/50 p-1.5 rounded-2xl transition-all shadow-[0_0_20px_rgba(0,0,0,0.4)]">
+            <div className="mt-4 flex items-center gap-2 bg-black/60 border border-cyber-purple/35 focus-within:border-cyber-purple/70 p-1.5 rounded-2xl transition-all shadow-[0_0_25px_rgba(0,0,0,0.6)]">
               <div className="pl-3 text-white/40 flex-shrink-0">
                 <Search className="w-5 h-5 text-cyber-purple" />
               </div>
@@ -201,7 +201,7 @@ export default function ResearchWorkspace({ theme, onBackToHome }: ResearchWorks
                     }
                   }}
                   disabled={isLoading}
-                  className="px-2.5 py-1 bg-white/2 hover:bg-cyber-purple/5 border border-white/5 hover:border-cyber-purple/20 rounded-lg text-white/60 hover:text-white transition-colors cursor-pointer disabled:opacity-50"
+                  className="px-2.5 py-1 bg-black/40 hover:bg-cyber-purple/10 border border-cyber-purple/20 hover:border-cyber-purple/50 rounded-lg text-white/70 hover:text-white transition-colors cursor-pointer disabled:opacity-50"
                 >
                   {t}
                 </button>

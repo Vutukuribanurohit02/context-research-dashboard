@@ -121,26 +121,70 @@ export default function LandingPage({ activeTheme, setTheme, onEnterWorkspace }:
           An advanced web crawler that strips headers, cookies, and ads to deliver clean, structured Markdown, live screenshots, and AI synthesis. Powered securely by Context.dev.
         </motion.p>
 
+        {/* Interactive Motherboard Entrance Portal */}
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex flex-col sm:flex-row gap-4 mt-4"
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          onClick={onEnterWorkspace}
+          className="mt-8 max-w-xl w-full glass-panel overflow-hidden border border-cyber-purple/30 hover:border-cyber-purple/60 bg-black/40 hover:bg-black/50 shadow-[0_20px_50px_rgba(0,0,0,0.7)] hover:shadow-[0_0_40px_var(--theme-primary-dim)] cursor-pointer group transition-all duration-500 rounded-3xl relative select-none"
         >
-          <button
-            type="button"
-            onClick={onEnterWorkspace}
-            className="px-8 py-4 bg-gradient-to-r from-cyber-purple to-cyber-pink hover:from-[#c084fc] hover:to-[#f472b6] text-white font-extrabold text-sm rounded-2xl transition-all cursor-pointer flex items-center gap-2 shadow-[0_0_35px_var(--theme-primary-glow)] hover:shadow-[0_0_50px_var(--theme-primary-glow)]"
-          >
-            Launch Research Workspace
-            <ArrowRight className="w-4 h-4" />
-          </button>
-          <a
-            href="#themes"
-            className="px-8 py-4 bg-white/2 hover:bg-white/5 border border-white/5 hover:border-cyber-purple/20 rounded-2xl text-white/80 hover:text-white transition-all text-sm font-semibold flex items-center justify-center"
-          >
-            Configure Theme
-          </a>
+          {/* Holographic scanner sweep overlay */}
+          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyber-pink to-transparent animate-scanner opacity-85 z-20 pointer-events-none" />
+
+          {/* Electronic Motherboard Background Image */}
+          <div className="relative h-64 sm:h-72 w-full overflow-hidden">
+            <img 
+              src="/cyber_portal_core.png" 
+              alt="Holographic Motherboard Portal Core" 
+              className="w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700 filter saturate-100" 
+            />
+            
+            {/* Dark gradient vignette overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent z-10" />
+
+            {/* Glowing component status indicators */}
+            <div className="absolute top-1/4 left-1/3 w-3 h-3 rounded-full bg-cyber-purple animate-ping opacity-60 z-20 pointer-events-none" />
+            <div className="absolute bottom-1/3 right-1/4 w-2 h-2 rounded-full bg-cyber-pink animate-ping opacity-50 z-20 pointer-events-none" style={{ animationDelay: "0.5s" }} />
+
+            {/* Electronic specifications HUD elements overlay */}
+            <div className="absolute top-4 left-4 font-mono text-[9px] text-cyber-purple/90 z-20 bg-black/80 px-2.5 py-1 rounded-md border border-cyber-purple/30 flex flex-col items-start gap-0.5">
+              <span className="flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#39ff88] animate-pulse" />
+                SYSTEM_STATE: CORE_ONLINE
+              </span>
+              <span>COGNITIVE_SYNC: 98.4%</span>
+            </div>
+
+            <div className="absolute top-4 right-4 font-mono text-[9px] text-cyber-pink/90 z-20 bg-black/80 px-2.5 py-1 rounded-md border border-cyber-pink/30 font-bold uppercase tracking-wider">
+              TAP CORE TO TRANSMIT
+            </div>
+
+            {/* Centered Glowing Portal Button */}
+            <div className="absolute inset-0 flex items-center justify-center z-20">
+              <div className="flex flex-col items-center gap-2.5">
+                <div className="w-16 h-16 rounded-full bg-black/80 border border-cyber-purple/60 group-hover:border-cyber-pink flex items-center justify-center shadow-[0_0_20px_var(--theme-primary-glow)] group-hover:shadow-[0_0_35px_var(--theme-accent-glow)] group-hover:scale-110 transition-all duration-500">
+                  <Zap className="w-8 h-8 text-cyber-purple group-hover:text-cyber-pink group-hover:rotate-12 transition-all duration-500" />
+                </div>
+                <span className="px-3 py-1 rounded-full bg-cyber-purple-dim border border-cyber-purple-glow/30 font-mono text-[10px] font-bold text-white tracking-widest uppercase group-hover:bg-cyber-pink-dim group-hover:border-cyber-pink-glow/40 transition-colors">
+                  ACTIVATE RESEARCH CORE
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Card footer description */}
+          <div className="p-4.5 border-t border-white/5 bg-black/40 flex items-center justify-between z-20 relative font-mono text-[10px]">
+            <div className="flex flex-col text-left">
+              <span className="text-white/40">CONNECTION INTERFACE</span>
+              <span className="text-white/80 font-sans text-xs font-semibold mt-0.5 group-hover:text-cyber-purple transition-colors">
+                Click anywhere to launch the application
+              </span>
+            </div>
+            <span className="text-cyber-pink font-bold group-hover:translate-x-1.5 transition-transform flex items-center gap-1 uppercase tracking-wider text-[9px]">
+              Enter Workspace &rarr;
+            </span>
+          </div>
         </motion.div>
       </section>
 
@@ -171,18 +215,18 @@ export default function LandingPage({ activeTheme, setTheme, onEnterWorkspace }:
               onClick={() => setTheme(themeOpt.id as any)}
               className={`p-5 glass-card border transition-all cursor-pointer flex flex-col gap-2 relative overflow-hidden select-none hover:-translate-y-1 ${
                 activeTheme === themeOpt.id
-                  ? "border-cyber-purple bg-cyber-purple/5 shadow-[0_0_20px_var(--theme-primary-dim)]"
-                  : "border-white/5 hover:border-white/20"
+                  ? "border-cyber-purple bg-cyber-purple/15 shadow-[0_0_25px_var(--theme-primary-glow)]"
+                  : "border-cyber-purple/15 bg-black/40 hover:bg-cyber-purple/5 hover:border-cyber-purple/40"
               }`}
             >
               {/* Active glow dot */}
               {activeTheme === themeOpt.id && (
-                <span className="absolute top-4 right-4 w-2 h-2 rounded-full bg-cyber-pink shadow-[0_0_8px_var(--theme-accent)]" />
+                <span className="absolute top-4 right-4 w-2 h-2 rounded-full bg-cyber-pink shadow-[0_0_8px_var(--theme-accent)] animate-pulse" />
               )}
               <h4 className={`text-xs font-bold font-mono ${themeOpt.color}`}>
                 {themeOpt.title}
               </h4>
-              <p className="text-[11px] text-white/50 leading-relaxed font-sans mt-1">
+              <p className="text-[11px] text-white/55 leading-relaxed font-sans mt-1">
                 {themeOpt.desc}
               </p>
             </div>
@@ -207,8 +251,8 @@ export default function LandingPage({ activeTheme, setTheme, onEnterWorkspace }:
             Standard web crawlers ingest raw HTML full of advertisements, navigation bars, headers, and consent dialogs. Context.dev strips everything except the primary content, converting it into clean, token-efficient Markdown.
           </p>
 
-          <div className="flex flex-col gap-2 bg-black/40 p-4 border border-white/5 rounded-2xl">
-            <div className="text-[11px] font-mono text-white/40">SIMULATE SCRAPING PATH</div>
+          <div className="flex flex-col gap-2 bg-black/40 p-4 border border-cyber-purple/20 rounded-2xl">
+            <div className="text-[11px] font-mono text-white/45">SIMULATE SCRAPING PATH</div>
             <div className="flex gap-2">
               <select
                 value={simulatorUrl}
@@ -219,7 +263,7 @@ export default function LandingPage({ activeTheme, setTheme, onEnterWorkspace }:
                   setSimTokenSavings(0);
                 }}
                 disabled={simulatorStatus === "running"}
-                className="flex-1 bg-black/80 border border-white/10 p-2.5 rounded-xl text-xs text-white/80 focus:outline-none focus:border-cyber-purple/40"
+                className="flex-1 bg-black/80 border border-cyber-purple/35 focus:border-cyber-purple p-2.5 rounded-xl text-xs text-white placeholder-white/30 focus:outline-none focus:ring-1 focus:ring-cyber-purple transition-all font-semibold shadow-[0_0_15px_rgba(0,0,0,0.4)]"
               >
                 <option value="https://techblog.com/nvidia-blackwell-launch">https://techblog.com/nvidia-blackwell-launch</option>
                 <option value="https://wikipedia.org/quantum-gate-computing">https://wikipedia.org/quantum-gate-computing</option>
@@ -229,7 +273,7 @@ export default function LandingPage({ activeTheme, setTheme, onEnterWorkspace }:
                 type="button"
                 onClick={handleRunSimulator}
                 disabled={simulatorStatus === "running"}
-                className="px-4 py-2 bg-cyber-purple hover:bg-cyber-purple/80 text-white font-extrabold text-xs rounded-xl transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none"
+                className="px-4 py-2 bg-cyber-purple hover:bg-cyber-purple/80 text-white font-extrabold text-xs rounded-xl transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none shadow-[0_0_15px_var(--theme-primary-dim)] hover:shadow-[0_0_20px_var(--theme-primary-glow)]"
               >
                 {simulatorStatus === "running" ? "Stripping..." : "Run Clean Ingestion"}
               </button>
@@ -429,7 +473,7 @@ export default function LandingPage({ activeTheme, setTheme, onEnterWorkspace }:
                 step="10"
                 value={dailyScrapes}
                 onChange={(e) => setDailyScrapes(Number(e.target.value))}
-                className="w-full h-1 bg-white/10 rounded-lg appearance-none cursor-pointer accent-cyber-purple"
+                className="w-full h-1.5 bg-cyber-purple/20 border border-cyber-purple/30 rounded-lg appearance-none cursor-pointer accent-cyber-purple transition-all"
               />
               <div className="flex justify-between text-[10px] text-white/30 font-mono select-none">
                 <span>10</span>
@@ -450,7 +494,7 @@ export default function LandingPage({ activeTheme, setTheme, onEnterWorkspace }:
                 step="50"
                 value={avgHtmlSize}
                 onChange={(e) => setAvgHtmlSize(Number(e.target.value))}
-                className="w-full h-1 bg-white/10 rounded-lg appearance-none cursor-pointer accent-cyber-purple"
+                className="w-full h-1.5 bg-cyber-purple/20 border border-cyber-purple/30 rounded-lg appearance-none cursor-pointer accent-cyber-purple transition-all"
               />
               <div className="flex justify-between text-[10px] text-white/30 font-mono select-none">
                 <span>50 KB</span>
@@ -469,8 +513,8 @@ export default function LandingPage({ activeTheme, setTheme, onEnterWorkspace }:
                     onClick={() => setSelectedModel(key)}
                     className={`p-2.5 border text-center text-xs rounded-xl font-mono transition-all cursor-pointer select-none ${
                       selectedModel === key
-                        ? "border-cyber-purple bg-cyber-purple/10 text-white font-bold"
-                        : "border-white/5 bg-white/2 text-white/50 hover:border-white/15"
+                        ? "border-cyber-purple bg-cyber-purple/15 text-white font-bold shadow-[0_0_10px_var(--theme-primary-dim)]"
+                        : "border-cyber-purple/15 bg-black/40 text-white/60 hover:border-cyber-purple/40 hover:text-white"
                     }`}
                   >
                     <div>{model.name}</div>
@@ -603,7 +647,7 @@ export default function LandingPage({ activeTheme, setTheme, onEnterWorkspace }:
                 key={q.key}
                 type="button"
                 onClick={() => handleAskQA(q.key)}
-                className="w-full text-left p-4 text-xs font-semibold text-white/80 bg-white/2 hover:bg-cyber-purple/5 border border-white/5 hover:border-cyber-purple/15 rounded-2xl transition-all cursor-pointer flex items-center justify-between group"
+                className="w-full text-left p-4 text-xs font-semibold text-white bg-black/40 hover:bg-cyber-purple/10 border border-cyber-purple/25 hover:border-cyber-purple/60 rounded-2xl transition-all cursor-pointer flex items-center justify-between group shadow-[0_0_15px_rgba(0,0,0,0.3)]"
               >
                 <span>{q.label}</span>
                 <ArrowRight className="w-3.5 h-3.5 text-white/30 group-hover:text-cyber-pink group-hover:translate-x-0.5 transition-all" />
@@ -612,7 +656,7 @@ export default function LandingPage({ activeTheme, setTheme, onEnterWorkspace }:
           </div>
 
           {/* Dialog Answer Screen */}
-          <div className="glass-card border border-white/5 p-6 min-h-[160px] flex flex-col justify-center bg-black/30 relative">
+          <div className="glass-card border border-cyber-pink/25 p-6 min-h-[160px] flex flex-col justify-center bg-black/50 shadow-[inset_0_0_20px_var(--theme-accent-dim)] relative rounded-2xl">
             <div className="absolute top-4 right-4 text-[9px] font-mono text-white/20 select-none">
               STATUS: FOUNDER_NODE_CONNECTED
             </div>
@@ -660,12 +704,12 @@ export default function LandingPage({ activeTheme, setTheme, onEnterWorkspace }:
       </section>
 
       {/* 6. BOTTOM CALL-TO-ACTION */}
-      <section className="text-center py-8 flex flex-col items-center gap-4 border-t border-white/5">
+      <section className="text-center py-8 flex flex-col items-center gap-4 border-t border-cyber-purple/25">
         <h3 className="text-xl font-bold text-white">Ready to run deep web queries?</h3>
         <button
           type="button"
           onClick={onEnterWorkspace}
-          className="px-8 py-4 bg-gradient-to-r from-cyber-purple to-cyber-pink hover:from-[#c084fc] hover:to-[#f472b6] text-white font-extrabold text-sm rounded-2xl transition-all cursor-pointer flex items-center gap-2 shadow-[0_0_30px_var(--theme-primary-glow)]"
+          className="px-8 py-4 bg-gradient-to-r from-cyber-purple to-cyber-pink hover:from-[#c084fc] hover:to-[#f472b6] text-white font-extrabold text-sm rounded-2xl transition-all cursor-pointer flex items-center gap-2 shadow-[0_0_35px_var(--theme-primary-glow)] hover:shadow-[0_0_50px_var(--theme-primary-glow)]"
         >
           Initialize Research Workspace
           <ArrowRight className="w-4 h-4" />
