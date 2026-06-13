@@ -186,3 +186,121 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--theme-accent-glow);
 }
+
+/* ==========================================
+   VISUAL MODE OVERRIDES (Classic & System)
+   ========================================== */
+
+/* 1. Classic Console Mode (No blur, solid panels, pure high-contrast) */
+.mode-classic {
+  --theme-bg-gradient: none !important;
+}
+
+.mode-classic, 
+.mode-classic .theme-cyber, 
+.mode-classic .theme-spatial, 
+.mode-classic .theme-quantum, 
+.mode-classic .theme-robotics {
+  background-color: #0b0c10 !important;
+  background-image: none !important;
+}
+
+.mode-classic .glass-panel {
+  background: #14161d !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: none !important;
+}
+
+.mode-classic .glass-card {
+  background: #1c1e26 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: none !important;
+}
+
+/* Disable background blur orbs in classic mode */
+.mode-classic div[class*="bg-cyber-purple/10"],
+.mode-classic div[class*="bg-cyber-pink/8"],
+.mode-classic div[class*="filter blur-"] {
+  display: none !important;
+  opacity: 0 !important;
+}
+
+/* 2. System Adaptive Mode (Adapts if system is in Light Mode) */
+@media (prefers-color-scheme: light) {
+  .mode-system, 
+  .mode-system .theme-cyber, 
+  .mode-system .theme-spatial, 
+  .mode-system .theme-quantum, 
+  .mode-system .theme-robotics {
+    background-color: #f4f5f8 !important;
+    background-image: radial-gradient(circle at 60% 30%, #e9edf5 0%, #f4f5f8 100%) !important;
+    color: #1a1e26 !important;
+  }
+  
+  .mode-system h1, 
+  .mode-system h2, 
+  .mode-system h3, 
+  .mode-system h4, 
+  .mode-system h5, 
+  .mode-system h6,
+  .mode-system .text-white,
+  .mode-system main h1 span,
+  .mode-system select {
+    color: #111318 !important;
+  }
+
+  .mode-system .text-white\/80,
+  .mode-system .text-white\/70,
+  .mode-system .text-white\/60,
+  .mode-system p {
+    color: #3f4453 !important;
+  }
+
+  .mode-system .text-white\/40,
+  .mode-system .text-white\/30,
+  .mode-system span[class*="text-white/40"] {
+    color: #727a8f !important;
+  }
+
+  .mode-system .glass-panel {
+    background: rgba(255, 255, 255, 0.85) !important;
+    border: 1px solid rgba(0, 0, 0, 0.12) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(20px) !important;
+  }
+
+  .mode-system .glass-card {
+    background: rgba(0, 0, 0, 0.03) !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    backdrop-filter: blur(10px) !important;
+  }
+
+  .mode-system div[class*="bg-black/60"],
+  .mode-system div[class*="bg-black/40"],
+  .mode-system div[class*="bg-black/50"],
+  .mode-system div[class*="bg-black/30"],
+  .mode-system div[class*="bg-black/85"] {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    border-color: rgba(0, 0, 0, 0.15) !important;
+  }
+
+  .mode-system input,
+  .mode-system select,
+  .mode-system textarea {
+    background-color: rgba(0, 0, 0, 0.04) !important;
+    border-color: rgba(0, 0, 0, 0.12) !important;
+    color: #111318 !important;
+  }
+
+  .mode-system input::placeholder,
+  .mode-system textarea::placeholder {
+    color: rgba(0, 0, 0, 0.4) !important;
+  }
+
+  .mode-system .cyber-grid {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px) !important;
+  }
+}

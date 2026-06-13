@@ -83,7 +83,7 @@ export default function Sidebar({
                   filters.depth === d
                     ? "bg-cyber-purple/20 text-white font-semibold border border-cyber-purple/40 shadow-[0_0_10px_var(--theme-primary-dim)]"
                     : "text-white/50 hover:text-white hover:bg-cyber-purple/10"
-                } disabled:opacity-50 disabled:cursor-not-allowed`}
+                } disabled:bg-white/5 disabled:text-white/30 disabled:border disabled:border-white/5 disabled:cursor-not-allowed`}
               >
                 {d}
               </button>
@@ -100,7 +100,7 @@ export default function Sidebar({
             disabled={isLoading}
             value={filters.sourceTypes}
             onChange={(e) => handleSourceTypeChange(e.target.value as any)}
-            className="w-full bg-black/60 border border-cyber-purple/30 p-2 rounded-xl text-xs text-white placeholder-white/30 focus:outline-none focus:border-cyber-purple focus:ring-1 focus:ring-cyber-purple transition-colors disabled:opacity-50"
+            className="w-full bg-black/60 border border-cyber-purple/30 p-2 rounded-xl text-xs text-white placeholder-white/30 focus:outline-none focus:border-cyber-purple focus:ring-1 focus:ring-cyber-purple transition-colors disabled:bg-white/5 disabled:text-white/30 disabled:border disabled:border-white/5"
           >
             <option value="all">All Sources (Default)</option>
             <option value="news">Tech News Only</option>
@@ -126,7 +126,7 @@ export default function Sidebar({
                 filters.includeImages 
                   ? "bg-cyber-purple border-cyber-purple shadow-[0_0_10px_var(--theme-primary-glow)]" 
                   : "bg-black/45 border-cyber-purple/25"
-              } disabled:opacity-50 disabled:cursor-not-allowed`}
+              } disabled:bg-white/5 disabled:text-white/30 disabled:border disabled:border-white/5 disabled:cursor-not-allowed`}
             >
               <div
                 className={`w-4 h-4 rounded-full bg-white shadow-md transform duration-300 ${
@@ -150,7 +150,7 @@ export default function Sidebar({
                 filters.includeScreenshots 
                   ? "bg-cyber-purple border-cyber-purple shadow-[0_0_10px_var(--theme-primary-glow)]" 
                   : "bg-black/45 border-cyber-purple/25"
-              } disabled:opacity-50 disabled:cursor-not-allowed`}
+              } disabled:bg-white/5 disabled:text-white/30 disabled:border disabled:border-white/5 disabled:cursor-not-allowed`}
             >
               <div
                 className={`w-4 h-4 rounded-full bg-white shadow-md transform duration-300 ${
@@ -193,7 +193,7 @@ export default function Sidebar({
                 type="button"
                 whileHover={{ x: 2 }}
                 onClick={() => !isLoading && onSelectSearch(search)}
-                className="w-full text-left p-3 text-xs text-white/70 hover:text-white bg-black/40 hover:bg-cyber-purple/10 border border-cyber-purple/25 hover:border-cyber-purple/60 rounded-xl transition-all flex items-center justify-between group overflow-hidden text-ellipsis whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_8px_rgba(0,0,0,0.2)]"
+                className="w-full text-left p-3 text-xs text-white/70 hover:text-white bg-black/40 hover:bg-cyber-purple/10 border border-cyber-purple/25 hover:border-cyber-purple/60 rounded-xl transition-all flex items-center justify-between group overflow-hidden text-ellipsis whitespace-nowrap disabled:bg-white/5 disabled:text-white/30 disabled:border disabled:border-white/5 disabled:cursor-not-allowed shadow-[0_0_8px_rgba(0,0,0,0.2)]"
                 disabled={isLoading}
               >
                 <div className="flex items-center gap-2 min-w-0">

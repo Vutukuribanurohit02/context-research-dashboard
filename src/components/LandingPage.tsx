@@ -32,6 +32,8 @@ const LinkedIn = ({ className = "w-4 h-4" }: { className?: string }) => (
 interface LandingPageProps {
   activeTheme: "cyber" | "spatial" | "quantum" | "robotics";
   setTheme: (theme: "cyber" | "spatial" | "quantum" | "robotics") => void;
+  activeMode: "dark" | "classic" | "system";
+  setMode: (mode: "dark" | "classic" | "system") => void;
   onEnterWorkspace: () => void;
   onEnterWorkspaceWithQuery: (query: string, mode: "quick" | "standard" | "deep") => void;
   onEnterWorkspaceWithClaim: (claim: string) => void;
@@ -40,6 +42,8 @@ interface LandingPageProps {
 export default function LandingPage({ 
   activeTheme, 
   setTheme, 
+  activeMode,
+  setMode,
   onEnterWorkspace,
   onEnterWorkspaceWithQuery,
   onEnterWorkspaceWithClaim
@@ -217,13 +221,33 @@ export default function LandingPage({
             <a href="#about" className="hover:text-cyber-purple transition-colors">About</a>
           </nav>
 
-          <button
-            type="button"
-            onClick={onEnterWorkspace}
-            className="px-4 py-2 bg-white/5 hover:bg-cyber-purple/10 border border-white/10 hover:border-cyber-purple/50 rounded-xl text-white font-mono text-xs transition-all cursor-pointer shadow-[0_0_15px_rgba(0,0,0,0.5)]"
-          >
-            Launch Dashboard
-          </button>
+          <div className="flex items-center gap-3">
+            {/* Mode Switcher */}
+            <div className="flex bg-black/60 border border-white/10 p-0.5 rounded-xl font-mono text-[9px] items-center">
+              {(["dark", "classic", "system"] as const).map((m) => (
+                <button
+                  key={m}
+                  type="button"
+                  onClick={() => setMode(m)}
+                  className={`px-2 py-1 rounded-lg capitalize cursor-pointer transition-colors ${
+                    activeMode === m 
+                      ? "bg-cyber-purple text-black font-extrabold" 
+                      : "text-white/50 hover:text-white"
+                  }`}
+                >
+                  {m}
+                </button>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              onClick={onEnterWorkspace}
+              className="px-4 py-2 bg-white/5 hover:bg-cyber-purple/10 border border-white/10 hover:border-cyber-purple/50 rounded-xl text-white font-mono text-xs transition-all cursor-pointer shadow-[0_0_15px_rgba(0,0,0,0.5)]"
+            >
+              Launch Dashboard
+            </button>
+          </div>
         </div>
       </header>
 
@@ -374,7 +398,7 @@ export default function LandingPage({
                   type="button"
                   onClick={() => homeClaim.trim() && onEnterWorkspaceWithClaim(homeClaim)}
                   disabled={!homeClaim.trim()}
-                  className="px-5 py-2.5 bg-cyber-pink hover:bg-cyber-pink/85 text-white font-extrabold text-xs rounded-xl transition-all cursor-pointer font-mono shadow-[0_0_15px_rgba(236,72,153,0.25)] hover:shadow-[0_0_22px_rgba(236,72,153,0.4)] disabled:opacity-50 disabled:cursor-not-allowed select-none whitespace-nowrap"
+                  className="px-5 py-2.5 bg-cyber-pink hover:bg-cyber-pink/85 text-white font-extrabold text-xs rounded-xl transition-all cursor-pointer font-mono shadow-[0_0_15px_rgba(236,72,153,0.25)] hover:shadow-[0_0_22px_rgba(236,72,153,0.4)] disabled:bg-white/5 disabled:text-white/30 disabled:border disabled:border-white/5 disabled:cursor-not-allowed select-none whitespace-nowrap"
                 >
                   Verify Claim
                 </button>
@@ -468,7 +492,7 @@ export default function LandingPage({
                   type="button"
                   onClick={handleRunSimulator}
                   disabled={simulatorStatus === "running"}
-                  className="px-4 py-2 bg-cyber-purple hover:bg-cyber-purple/80 text-white font-extrabold text-xs rounded-xl transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none shadow-[0_0_15px_var(--theme-primary-dim)] hover:shadow-[0_0_20px_var(--theme-primary-glow)]"
+                  className="px-4 py-2 bg-cyber-purple hover:bg-cyber-purple/80 text-white font-extrabold text-xs rounded-xl transition-all cursor-pointer disabled:bg-white/5 disabled:text-white/30 disabled:border disabled:border-white/5 disabled:cursor-not-allowed select-none shadow-[0_0_15px_var(--theme-primary-dim)] hover:shadow-[0_0_20px_var(--theme-primary-glow)]"
                 >
                   {simulatorStatus === "running" ? "Stripping..." : "Run Clean Ingestion"}
                 </button>
@@ -875,7 +899,7 @@ export default function LandingPage({
                   type="button"
                   onClick={handleSendChatbot}
                   disabled={isBotLoading || !chatbotQuestion.trim()}
-                  className="p-2.5 bg-cyber-purple hover:bg-cyber-purple/80 text-black rounded-xl transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none shrink-0"
+                  className="p-2.5 bg-cyber-purple hover:bg-cyber-purple/80 text-black rounded-xl transition-all cursor-pointer disabled:bg-white/5 disabled:text-white/30 disabled:border disabled:border-white/5 disabled:cursor-not-allowed select-none shrink-0"
                 >
                   <Send className="w-4 h-4" />
                 </button>
@@ -1250,7 +1274,7 @@ export default function LandingPage({
                   <button
                     type="submit"
                     disabled={isContactSubmitting}
-                    className="w-full py-2.5 bg-cyber-purple hover:bg-cyber-purple/85 text-black font-extrabold text-xs font-mono rounded-xl transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none shadow-[0_0_15px_var(--theme-primary-dim)]"
+                    className="w-full py-2.5 bg-cyber-purple hover:bg-cyber-purple/85 text-black font-extrabold text-xs font-mono rounded-xl transition-all cursor-pointer disabled:bg-white/5 disabled:text-white/30 disabled:border disabled:border-white/5 disabled:cursor-not-allowed select-none shadow-[0_0_15px_var(--theme-primary-dim)]"
                   >
                     {isContactSubmitting ? "Sending message..." : "Send Message"}
                   </button>

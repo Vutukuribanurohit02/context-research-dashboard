@@ -8,6 +8,7 @@ import ResearchWorkspace from "@/components/ResearchWorkspace";
 export default function Home() {
   const [activeView, setActiveView] = useState<"home" | "workspace">("home");
   const [theme, setTheme] = useState<"cyber" | "spatial" | "quantum" | "robotics">("cyber");
+  const [mode, setMode] = useState<"dark" | "classic" | "system">("dark");
   const [prefilledQuery, setPrefilledQuery] = useState("");
   const [prefilledMode, setPrefilledMode] = useState<"quick" | "standard" | "deep">("standard");
   const [prefilledClaim, setPrefilledClaim] = useState("");
@@ -29,7 +30,7 @@ export default function Home() {
   };
 
   return (
-    <div className={`relative min-h-screen flex flex-col font-sans overflow-x-hidden theme-${theme}`}>
+    <div className={`relative min-h-screen flex flex-col font-sans overflow-x-hidden theme-${theme} mode-${mode}`}>
       {/* Cyber background grid overlay */}
       <div className="absolute inset-0 cyber-grid pointer-events-none z-0 opacity-80" />
 
@@ -51,6 +52,8 @@ export default function Home() {
               <LandingPage
                 activeTheme={theme}
                 setTheme={setTheme}
+                activeMode={mode}
+                setMode={setMode}
                 onEnterWorkspace={() => {
                   setPrefilledQuery("");
                   setPrefilledClaim("");
@@ -73,6 +76,8 @@ export default function Home() {
               <ResearchWorkspace
                 theme={theme}
                 onBackToHome={() => setActiveView("home")}
+                activeMode={mode}
+                setMode={setMode}
                 prefilledQuery={prefilledQuery}
                 prefilledMode={prefilledMode}
                 prefilledClaim={prefilledClaim}

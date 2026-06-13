@@ -176,7 +176,7 @@ export default function TruthCheckPanel({ initialClaim = "", theme }: TruthCheck
               type="button"
               onClick={() => handleVerify()}
               disabled={isLoading || !claim.trim()}
-              className="px-6 py-3 bg-gradient-to-r from-cyber-purple to-cyber-pink hover:from-[#c084fc] hover:to-[#f472b6] text-white text-xs font-extrabold rounded-xl transition-all cursor-pointer flex items-center gap-1.5 shadow-[0_0_20px_rgba(168,85,247,0.3)] disabled:opacity-50 disabled:cursor-not-allowed select-none"
+              className="px-6 py-3 bg-gradient-to-r from-cyber-purple to-cyber-pink hover:from-[#c084fc] hover:to-[#f472b6] text-white text-xs font-extrabold rounded-xl transition-all cursor-pointer flex items-center gap-1.5 shadow-[0_0_20px_rgba(168,85,247,0.3)] disabled:bg-white/5 disabled:text-white/30 disabled:border disabled:border-white/5 disabled:cursor-not-allowed select-none"
             >
               {isLoading ? (
                 <>
@@ -206,7 +206,7 @@ export default function TruthCheckPanel({ initialClaim = "", theme }: TruthCheck
                   }
                 }}
                 disabled={isLoading}
-                className="px-2.5 py-1 bg-black/40 hover:bg-cyber-purple/10 border border-cyber-purple/20 hover:border-cyber-purple/50 rounded-lg text-white/70 hover:text-white transition-colors cursor-pointer text-left max-w-xs truncate disabled:opacity-50"
+                className="px-2.5 py-1 bg-black/40 hover:bg-cyber-purple/10 border border-cyber-purple/20 hover:border-cyber-purple/50 rounded-lg text-white/70 hover:text-white transition-colors cursor-pointer text-left max-w-xs truncate disabled:bg-white/5 disabled:text-white/30 disabled:border disabled:border-white/5"
               >
                 {t}
               </button>

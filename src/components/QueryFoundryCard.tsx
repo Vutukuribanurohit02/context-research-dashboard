@@ -92,7 +92,7 @@ export default function QueryFoundryCard({ onOpenInDashboard }: QueryFoundryCard
             type="button"
             onClick={handleGenerate}
             disabled={isLoading || !topic.trim()}
-            className="w-full py-2.5 bg-cyber-purple hover:bg-cyber-purple/80 text-black font-extrabold text-xs rounded-xl transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-1.5 shadow-[0_0_15px_var(--theme-primary-dim)] select-none hover:shadow-[0_0_22px_var(--theme-primary-glow)] font-mono"
+            className="w-full py-2.5 bg-cyber-purple hover:bg-cyber-purple/80 text-black font-extrabold text-xs rounded-xl transition-all cursor-pointer disabled:bg-white/5 disabled:text-white/30 disabled:border disabled:border-white/5 disabled:cursor-not-allowed flex items-center justify-center gap-1.5 shadow-[0_0_15px_var(--theme-primary-dim)] select-none hover:shadow-[0_0_22px_var(--theme-primary-glow)] font-mono"
           >
             <Sparkles className="w-3.5 h-3.5" />
             {isLoading ? "Forging Plan..." : "Generate Starting Point"}

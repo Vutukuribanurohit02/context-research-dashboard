@@ -19,6 +19,8 @@ interface Filters {
 interface ResearchWorkspaceProps {
   theme: "cyber" | "spatial" | "quantum" | "robotics";
   onBackToHome: () => void;
+  activeMode: "dark" | "classic" | "system";
+  setMode: (mode: "dark" | "classic" | "system") => void;
   prefilledQuery?: string;
   prefilledMode?: "quick" | "standard" | "deep";
   prefilledClaim?: string;
@@ -28,6 +30,8 @@ interface ResearchWorkspaceProps {
 export default function ResearchWorkspace({ 
   theme, 
   onBackToHome, 
+  activeMode,
+  setMode,
   prefilledQuery = "", 
   prefilledMode = "standard", 
   prefilledClaim = "", 
@@ -169,7 +173,7 @@ export default function ResearchWorkspace({
           <div className="absolute top-0 right-0 w-32 h-32 bg-cyber-purple-glow/5 filter blur-3xl pointer-events-none" />
 
           <div className="flex flex-col gap-4">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between flex-wrap gap-4">
               <div className="flex items-center gap-2">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 text-[11px] font-mono font-semibold text-cyber-pink bg-cyber-purple-dim border border-cyber-purple-glow/20 rounded-full">
                   <Flame className="w-3.5 h-3.5 text-cyber-pink animate-pulse" />
@@ -179,13 +183,34 @@ export default function ResearchWorkspace({
                   Node v1.0.0 &bull; Context.dev Enabled
                 </span>
               </div>
-              <button
-                type="button"
-                onClick={onBackToHome}
-                className="flex items-center gap-1 text-xs text-white/50 hover:text-cyber-pink transition-colors font-mono cursor-pointer"
-              >
-                <ArrowLeft className="w-3.5 h-3.5" /> Back to Home
-              </button>
+              
+              <div className="flex items-center gap-4">
+                {/* Mode Switcher */}
+                <div className="flex bg-black/60 border border-white/10 p-0.5 rounded-xl font-mono text-[9px] items-center">
+                  {(["dark", "classic", "system"] as const).map((m) => (
+                    <button
+                      key={m}
+                      type="button"
+                      onClick={() => setMode(m)}
+                      className={`px-2 py-1 rounded-lg capitalize cursor-pointer transition-colors ${
+                        activeMode === m 
+                          ? "bg-cyber-purple text-black font-extrabold" 
+                          : "text-white/50 hover:text-white"
+                      }`}
+                    >
+                      {m}
+                    </button>
+                  ))}
+                </div>
+
+                <button
+                  type="button"
+                  onClick={onBackToHome}
+                  className="flex items-center gap-1 text-xs text-white/50 hover:text-cyber-pink transition-colors font-mono cursor-pointer"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5" /> Back to Home
+                </button>
+              </div>
             </div>
 
             {/* Tab Switcher */}
@@ -245,7 +270,7 @@ export default function ResearchWorkspace({
                     type="button"
                     onClick={() => handleSearch()}
                     disabled={isLoading || !query.trim()}
-                    className="px-6 py-3 bg-gradient-to-r from-cyber-purple to-cyber-pink hover:from-[#c084fc] hover:to-[#f472b6] text-white text-xs font-extrabold rounded-xl transition-all cursor-pointer flex items-center gap-1.5 shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:shadow-[0_0_30px_rgba(236,72,153,0.45)] disabled:opacity-50 disabled:cursor-not-allowed select-none"
+                    className="px-6 py-3 bg-gradient-to-r from-cyber-purple to-cyber-pink hover:from-[#c084fc] hover:to-[#f472b6] text-white text-xs font-extrabold rounded-xl transition-all cursor-pointer flex items-center gap-1.5 shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:shadow-[0_0_30px_rgba(236,72,153,0.45)] disabled:bg-white/5 disabled:text-white/30 disabled:border disabled:border-white/5 disabled:cursor-not-allowed select-none"
                   >
                     Research
                   </button>
@@ -265,7 +290,7 @@ export default function ResearchWorkspace({
                         }
                       }}
                       disabled={isLoading}
-                      className="px-2.5 py-1 bg-black/40 hover:bg-cyber-purple/10 border border-cyber-purple/20 hover:border-cyber-purple/50 rounded-lg text-white/70 hover:text-white transition-colors cursor-pointer disabled:opacity-50"
+                      className="px-2.5 py-1 bg-black/40 hover:bg-cyber-purple/10 border border-cyber-purple/20 hover:border-cyber-purple/50 rounded-lg text-white/70 hover:text-white transition-colors cursor-pointer disabled:bg-white/5 disabled:text-white/30 disabled:border disabled:border-white/5"
                     >
                       {t}
                     </button>
