@@ -8,6 +8,25 @@ import ResearchWorkspace from "@/components/ResearchWorkspace";
 export default function Home() {
   const [activeView, setActiveView] = useState<"home" | "workspace">("home");
   const [theme, setTheme] = useState<"cyber" | "spatial" | "quantum" | "robotics">("cyber");
+  const [prefilledQuery, setPrefilledQuery] = useState("");
+  const [prefilledMode, setPrefilledMode] = useState<"quick" | "standard" | "deep">("standard");
+  const [prefilledClaim, setPrefilledClaim] = useState("");
+  const [initialTab, setInitialTab] = useState<"research" | "truthcheck">("research");
+
+  const handleEnterWorkspaceWithQuery = (query: string, mode: "quick" | "standard" | "deep") => {
+    setPrefilledQuery(query);
+    setPrefilledMode(mode);
+    setPrefilledClaim("");
+    setInitialTab("research");
+    setActiveView("workspace");
+  };
+
+  const handleEnterWorkspaceWithClaim = (claim: string) => {
+    setPrefilledClaim(claim);
+    setPrefilledQuery("");
+    setInitialTab("truthcheck");
+    setActiveView("workspace");
+  };
 
   return (
     <div className={`relative min-h-screen flex flex-col font-sans overflow-x-hidden theme-${theme}`}>
@@ -32,7 +51,14 @@ export default function Home() {
               <LandingPage
                 activeTheme={theme}
                 setTheme={setTheme}
-                onEnterWorkspace={() => setActiveView("workspace")}
+                onEnterWorkspace={() => {
+                  setPrefilledQuery("");
+                  setPrefilledClaim("");
+                  setInitialTab("research");
+                  setActiveView("workspace");
+                }}
+                onEnterWorkspaceWithQuery={handleEnterWorkspaceWithQuery}
+                onEnterWorkspaceWithClaim={handleEnterWorkspaceWithClaim}
               />
             </motion.div>
           ) : (
@@ -47,6 +73,10 @@ export default function Home() {
               <ResearchWorkspace
                 theme={theme}
                 onBackToHome={() => setActiveView("home")}
+                prefilledQuery={prefilledQuery}
+                prefilledMode={prefilledMode}
+                prefilledClaim={prefilledClaim}
+                initialTab={initialTab}
               />
             </motion.div>
           )}
@@ -55,3 +85,4 @@ export default function Home() {
     </div>
   );
 }
+

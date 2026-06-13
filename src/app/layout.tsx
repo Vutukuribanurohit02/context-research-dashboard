@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Context Intel | Live AI Research Dashboard",
-  description: "Real-time AI research intelligence board powered by Context.dev APIs.",
+  title: "QueryFoundry AI | Live Research & Grounded TruthCheck",
+  description: "Real-time AI research intelligence board, claim verification, and hardware systems engineering tools.",
 };
 
 export default function RootLayout({
