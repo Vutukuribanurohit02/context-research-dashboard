@@ -11,6 +11,8 @@
   --theme-dark: #020403;
   --theme-bg-gradient: radial-gradient(circle at 60% 30%, #071f11 0%, #020403 100%);
   --theme-glass-border: rgba(57, 255, 136, 0.15);
+  --theme-primary-btn-text: #000000;
+  --theme-accent-btn-text: #000000;
 }
 
 .theme-spatial {
@@ -23,6 +25,8 @@
   --theme-dark: #030108;
   --theme-bg-gradient: radial-gradient(circle at 60% 30%, #170726 0%, #030108 100%);
   --theme-glass-border: rgba(168, 85, 247, 0.16);
+  --theme-primary-btn-text: #ffffff;
+  --theme-accent-btn-text: #ffffff;
 }
 
 .theme-quantum {
@@ -35,6 +39,8 @@
   --theme-dark: #010204;
   --theme-bg-gradient: radial-gradient(circle at 60% 30%, #001a2c 0%, #010204 100%);
   --theme-glass-border: rgba(0, 188, 255, 0.16);
+  --theme-primary-btn-text: #000000;
+  --theme-accent-btn-text: #000000;
 }
 
 .theme-robotics {
@@ -47,9 +53,30 @@
   --theme-dark: #070708;
   --theme-bg-gradient: radial-gradient(circle at 60% 30%, #291201 0%, #070708 100%);
   --theme-glass-border: rgba(255, 107, 0, 0.16);
+  --theme-primary-btn-text: #ffffff;
+  --theme-accent-btn-text: #000000;
 }
 
 :root {
+  /* Default Theme Fallbacks (Cyber Theme) */
+  --theme-primary: #39ff88;
+  --theme-primary-dim: rgba(57, 255, 136, 0.15);
+  --theme-primary-glow: rgba(57, 255, 136, 0.4);
+  --theme-accent: #00e1bb;
+  --theme-accent-dim: rgba(0, 225, 187, 0.15);
+  --theme-accent-glow: rgba(0, 225, 187, 0.4);
+  --theme-dark: #020403;
+  --theme-bg-gradient: radial-gradient(circle at 60% 30%, #071f11 0%, #020403 100%);
+  --theme-glass-border: rgba(57, 255, 136, 0.15);
+  
+  --theme-primary-btn-text: #000000;
+  --theme-accent-btn-text: #000000;
+
+  /* Button Disabled State Style Variables */
+  --theme-btn-disabled-bg: rgba(255, 255, 255, 0.05);
+  --theme-btn-disabled-text: rgba(255, 255, 255, 0.35);
+  --theme-btn-disabled-border: rgba(255, 255, 255, 0.05);
+
   --background: var(--theme-dark);
   --foreground: #fcfaff;
 }
@@ -188,6 +215,51 @@ body {
 }
 
 /* ==========================================
+   EXPLICIT BUTTON THEME CLASSES (Contrast fixes)
+   ========================================== */
+.btn-primary {
+  background-color: var(--theme-primary) !important;
+  color: var(--theme-primary-btn-text, #000000) !important;
+  font-weight: 800 !important;
+  transition: all 0.3s ease !important;
+  border: 1px solid transparent !important;
+}
+
+.btn-primary:hover:not(:disabled) {
+  opacity: 0.9 !important;
+  box-shadow: 0 0 20px var(--theme-primary-glow) !important;
+}
+
+.btn-primary:disabled {
+  background-color: var(--theme-btn-disabled-bg) !important;
+  color: var(--theme-btn-disabled-text) !important;
+  border: 1px solid var(--theme-btn-disabled-border) !important;
+  cursor: not-allowed !important;
+  box-shadow: none !important;
+}
+
+.btn-accent {
+  background-color: var(--theme-accent) !important;
+  color: var(--theme-accent-btn-text, #ffffff) !important;
+  font-weight: 800 !important;
+  transition: all 0.3s ease !important;
+  border: 1px solid transparent !important;
+}
+
+.btn-accent:hover:not(:disabled) {
+  opacity: 0.9 !important;
+  box-shadow: 0 0 20px var(--theme-accent-glow) !important;
+}
+
+.btn-accent:disabled {
+  background-color: var(--theme-btn-disabled-bg) !important;
+  color: var(--theme-btn-disabled-text) !important;
+  border: 1px solid var(--theme-btn-disabled-border) !important;
+  cursor: not-allowed !important;
+  box-shadow: none !important;
+}
+
+/* ==========================================
    VISUAL MODE OVERRIDES (Classic & System)
    ========================================== */
 
@@ -236,6 +308,9 @@ body {
     background-color: #f4f5f8 !important;
     background-image: radial-gradient(circle at 60% 30%, #e9edf5 0%, #f4f5f8 100%) !important;
     color: #1a1e26 !important;
+    --theme-btn-disabled-bg: rgba(0, 0, 0, 0.05) !important;
+    --theme-btn-disabled-text: rgba(0, 0, 0, 0.35) !important;
+    --theme-btn-disabled-border: rgba(0, 0, 0, 0.08) !important;
   }
   
   .mode-system h1, 

@@ -194,7 +194,7 @@ export default function ResearchWorkspace({
                       onClick={() => setMode(m)}
                       className={`px-2 py-1 rounded-lg capitalize cursor-pointer transition-colors ${
                         activeMode === m 
-                          ? "bg-cyber-purple text-black font-extrabold" 
+                          ? "bg-cyber-purple text-[var(--theme-primary-btn-text,#000)] font-extrabold" 
                           : "text-white/50 hover:text-white"
                       }`}
                     >

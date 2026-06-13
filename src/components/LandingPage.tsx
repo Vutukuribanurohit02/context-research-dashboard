@@ -231,7 +231,7 @@ export default function LandingPage({
                   onClick={() => setMode(m)}
                   className={`px-2 py-1 rounded-lg capitalize cursor-pointer transition-colors ${
                     activeMode === m 
-                      ? "bg-cyber-purple text-black font-extrabold" 
+                      ? "bg-cyber-purple text-[var(--theme-primary-btn-text,#000)] font-extrabold" 
                       : "text-white/50 hover:text-white"
                   }`}
                 >
@@ -398,7 +398,7 @@ export default function LandingPage({
                   type="button"
                   onClick={() => homeClaim.trim() && onEnterWorkspaceWithClaim(homeClaim)}
                   disabled={!homeClaim.trim()}
-                  className="px-5 py-2.5 bg-cyber-pink hover:bg-cyber-pink/85 text-white font-extrabold text-xs rounded-xl transition-all cursor-pointer font-mono shadow-[0_0_15px_rgba(236,72,153,0.25)] hover:shadow-[0_0_22px_rgba(236,72,153,0.4)] disabled:bg-white/5 disabled:text-white/30 disabled:border disabled:border-white/5 disabled:cursor-not-allowed select-none whitespace-nowrap"
+                  className="px-5 py-2.5 btn-accent text-xs rounded-xl cursor-pointer font-mono select-none whitespace-nowrap"
                 >
                   Verify Claim
                 </button>
@@ -492,7 +492,7 @@ export default function LandingPage({
                   type="button"
                   onClick={handleRunSimulator}
                   disabled={simulatorStatus === "running"}
-                  className="px-4 py-2 bg-cyber-purple hover:bg-cyber-purple/80 text-white font-extrabold text-xs rounded-xl transition-all cursor-pointer disabled:bg-white/5 disabled:text-white/30 disabled:border disabled:border-white/5 disabled:cursor-not-allowed select-none shadow-[0_0_15px_var(--theme-primary-dim)] hover:shadow-[0_0_20px_var(--theme-primary-glow)]"
+                  className="px-4 py-2 btn-primary text-xs rounded-xl cursor-pointer select-none"
                 >
                   {simulatorStatus === "running" ? "Stripping..." : "Run Clean Ingestion"}
                 </button>
@@ -616,7 +616,7 @@ export default function LandingPage({
                     }`}>
                       <div className={`w-8 h-8 rounded-full flex items-center justify-center mb-1.5 transition-colors ${
                         isActive 
-                          ? "bg-cyber-purple text-black"
+                          ? "bg-cyber-purple text-[var(--theme-primary-btn-text,#000)]"
                           : isCompleted
                             ? "bg-cyber-pink text-white"
                             : "bg-white/5 text-white/40"
@@ -868,7 +868,7 @@ export default function LandingPage({
                     )}
                     <div className={`p-3 rounded-2xl max-w-[80%] leading-relaxed ${
                       msg.sender === "user" 
-                        ? "bg-cyber-purple text-black font-semibold rounded-tr-none" 
+                        ? "bg-cyber-purple text-[var(--theme-primary-btn-text,#000)] font-semibold rounded-tr-none" 
                         : "bg-white/5 border border-white/10 text-white/90 rounded-tl-none"
                     }`}>
                       {msg.text}
@@ -899,7 +899,7 @@ export default function LandingPage({
                   type="button"
                   onClick={handleSendChatbot}
                   disabled={isBotLoading || !chatbotQuestion.trim()}
-                  className="p-2.5 bg-cyber-purple hover:bg-cyber-purple/80 text-black rounded-xl transition-all cursor-pointer disabled:bg-white/5 disabled:text-white/30 disabled:border disabled:border-white/5 disabled:cursor-not-allowed select-none shrink-0"
+                  className="p-2.5 btn-primary rounded-xl cursor-pointer select-none shrink-0 flex items-center justify-center"
                 >
                   <Send className="w-4 h-4" />
                 </button>
@@ -1125,7 +1125,7 @@ export default function LandingPage({
               <button
                 type="button"
                 onClick={() => setIsContactOpen(true)}
-                className="px-6 py-2.5 bg-cyber-purple hover:bg-cyber-purple/80 text-black font-extrabold text-xs font-mono rounded-xl transition-all cursor-pointer shadow-[0_0_15px_var(--theme-primary-dim)] select-none hover:shadow-[0_0_22px_var(--theme-primary-glow)]"
+                className="px-6 py-2.5 btn-primary text-xs font-mono rounded-xl cursor-pointer select-none"
               >
                 Get in Touch
               </button>
@@ -1274,7 +1274,7 @@ export default function LandingPage({
                   <button
                     type="submit"
                     disabled={isContactSubmitting}
-                    className="w-full py-2.5 bg-cyber-purple hover:bg-cyber-purple/85 text-black font-extrabold text-xs font-mono rounded-xl transition-all cursor-pointer disabled:bg-white/5 disabled:text-white/30 disabled:border disabled:border-white/5 disabled:cursor-not-allowed select-none shadow-[0_0_15px_var(--theme-primary-dim)]"
+                    className="w-full py-2.5 btn-primary text-xs font-mono rounded-xl cursor-pointer select-none"
                   >
                     {isContactSubmitting ? "Sending message..." : "Send Message"}
                   </button>
