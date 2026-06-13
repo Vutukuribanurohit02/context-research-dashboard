@@ -2,6 +2,9 @@
 
 > **Premium AI-Powered Factual Research, Verification & Smart-Response Workspace**
 > Built using Next.js 16 (App Router, Turbopack), React 19, Tailwind CSS v4, Framer Motion, and Google Gemini AI.
+>
+> 🌐 **Live Demo**: [neuraquery.netlify.app](https://neuraquery.netlify.app/)
+
 
 QueryFoundry AI is a state-of-the-art cognitive workspace designed to solve factual grounding, news verification, and hardware design research. By combining deep search web indexing, resident-crawling web parsers, and structured Gemini-driven synthesis, it turns rough topics or claims into structured, cited insights. 
 
